@@ -2,11 +2,16 @@
 
 namespace FactoryPatternDemo
 {
-    class Program
+  class Program
+  {
+    static void Main(string[] args)
     {
-        static void Main(string[] args)
-        {
-            Console.WriteLine("Hello World!");
-        }
+      string reportName = "FactoryPatternDemo.StaffShiftPatternReport";
+      Console.WriteLine(Type.GetType(reportName));
+      var factory = Activator.CreateInstance(
+        Type.GetType(reportName) ?? throw new InvalidOperationException()
+      ) as IReportFactory;
+      factory?.Run();
     }
+  }
 }
